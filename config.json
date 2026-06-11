@@ -4,7 +4,7 @@
     "height": 1080,
     "fps": 30,
     "maxCharactersPerSlide": 450,
-    "themeName": "royal-indigo",
+    "themeName": "arctic-blue",
     "theme": {},
     "fontFamily": "outfit",
     "fontWeight": "600",
@@ -17,7 +17,7 @@
   },
   "audio": {
     "musicPath": "assets/pog/School Anthem_01.wav",
-    "volume": 0.15,
+    "volume": 1.0,
     "loop": true,
     "fadeInInSeconds": 2,
     "fadeOutInSeconds": 2
@@ -38,23 +38,35 @@
     "style": "glassmorphic",
     "title": "Pearls Of God School",
     "subtitle": "Workshop on Economics",
-    "durationInSeconds": 4,
+    "durationInSeconds": 6,
     "theme": {
-      "background": "linear-gradient(135deg, #1e1b4b 0%, #0a0d14 100%)",
+      "background": "linear-gradient(135deg, #0e1b2d 0%, #060b13 100%)",
       "textColor": "#f8fafc",
-      "subtitleColor": "#a5b4fc"
+      "subtitleColor": "#93c5fd"
     }
   },
   "slides": [
+    {
+      "id": "media_banner",
+      "folder": "media_banner",
+      "media": "assets/pog/title banner.jpeg",
+      "mediaType": "image",
+      "heading": "",
+      "content": "",
+      "durationInSeconds": 9,
+      "mediaStartFromInSeconds": 0,
+      "layout": "media-only",
+      "transition": "fade"
+    },
     {
       "id": "slide_1",
       "folder": "school_picture",
       "media": "assets/pog/school picture.jpeg",
       "mediaType": "image",
-      "heading": "Pearls Of God School",
-      "subheading": "Established in 1994",
+      "heading": "~~Pearls Of God School~~",
+      "subheading": "Established in **1994**",
       "content": "Overall development of students under the efficient guidance of well qualified teachers. The institution stands as a beacon of academic excellence.",
-      "durationInSeconds": 6,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-right",
       "transition": "fade"
@@ -64,10 +76,10 @@
       "folder": "secretary",
       "media": "assets/pog/secretary.jpeg",
       "mediaType": "image",
-      "heading": "Mrs. Anuradha Chatterjee",
-      "subheading": "Secretary, Pearls Of God",
+      "heading": "~~Mrs. Anuradha Chatterjee~~",
+      "subheading": "**Secretary**, Pearls Of God",
       "content": "Guiding the institution towards new horizons, fostering **academic growth** and community empowerment.",
-      "durationInSeconds": 6,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-left",
       "transition": "fade"
@@ -77,10 +89,10 @@
       "folder": "principal",
       "media": "assets/pog/principal.jpeg",
       "mediaType": "image",
-      "heading": "Mr. Amal Chatterjee",
-      "subheading": "Principal & Founder",
+      "heading": "~~Mr. Amal Chatterjee~~",
+      "subheading": "**Principal & Founder**, Pearls Of God",
       "content": "Established in 1994, the institution is the *brainchild of Mr. Amal Chatterjee*, serving students with dedicated educational leadership.",
-      "durationInSeconds": 6,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-right",
       "transition": "fade"
@@ -90,10 +102,10 @@
       "folder": "vice_principal",
       "media": "assets/pog/vice principal.jpeg",
       "mediaType": "image",
-      "heading": "Mr. Arnab Chatterjee",
-      "subheading": "Vice Principal",
+      "heading": "~~Mr. Arnab Chatterjee~~",
+      "subheading": "**Vice Principal**, Pearls Of God",
       "content": "Pioneering modern learning methods and academic strategies to drive **overall student development**.",
-      "durationInSeconds": 6,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-left",
       "transition": "fade"
@@ -103,10 +115,10 @@
       "folder": "administrative_chief",
       "media": "assets/pog/administrative chief.jpeg",
       "mediaType": "image",
-      "heading": "Mrs. Arpita Dutta",
-      "subheading": "Administrative In-Charge",
+      "heading": "~~Mrs. Arpita Dutta~~",
+      "subheading": "**Administrative In-Charge**, Pearls Of God",
       "content": "Managing institutional administration, operations, and academic logistics with `exemplary efficiency and care`.",
-      "durationInSeconds": 6,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-right",
       "transition": "fade"
@@ -119,7 +131,7 @@
       "heading": "Workshop on Economics",
       "subheading": "Building Bricks: The Genesis of a Giant",
       "content": "On the ~~32nd Foundation Year~~ of our school, we look forward to welcoming you to this seminar and interactive workshop.",
-      "durationInSeconds": 7,
+      "durationInSeconds": 9,
       "mediaStartFromInSeconds": 0,
       "layout": "split-media-left",
       "transition": "fade"
@@ -132,11 +144,11 @@
     "subtitle": "Pearls Of God School",
     "contact": "32nd Foundation Year Celebration",
     "website": "pearlsofgod.in",
-    "durationInSeconds": 5,
+    "durationInSeconds": 6,
     "theme": {
-      "background": "linear-gradient(135deg, #0a0d14 0%, #1e1b4b 100%)",
+      "background": "linear-gradient(135deg, #060b13 0%, #0e1b2d 100%)",
       "textColor": "#f8fafc",
-      "subtitleColor": "#f472b6"
+      "subtitleColor": "#fb923c"
     }
   }
 }

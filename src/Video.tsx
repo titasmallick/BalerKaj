@@ -582,7 +582,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
           </h1>
           {titlePage.subtitle && (
             <p style={{
-              fontSize: isPortrait ? 20 : 26,
+              fontSize: isPortrait ? 26 : 38,
               fontWeight: 500,
               color: titlePage.theme.subtitleColor || theme.secondary,
               marginTop: 25,
@@ -1021,7 +1021,35 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
           lineHeight: 1.15,
           letterSpacing: -1.5,
         }}>
-          {slide.heading}
+          <ReactMarkdown
+            components={{
+              strong: ({node, ...props}) => <span style={{color: theme.secondary, fontWeight: 900}} {...props} />,
+              em: ({node, ...props}) => <span style={{color: theme.accent, fontWeight: 900, fontStyle: 'normal'}} {...props} />,
+              del: ({node, ...props}) => <span style={{textDecoration: 'none', background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, borderBottom: `3px solid ${theme.accent}`, padding: '2px 6px', borderRadius: '4px', fontWeight: 900}} {...props} />,
+              a: ({node, href, ...props}) => {
+                if (href === 'highlight') {
+                  return (
+                    <span 
+                      style={{
+                        textDecoration: 'none', 
+                        background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, 
+                        borderBottom: `3px solid ${theme.accent}`, 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontWeight: 900
+                      }} 
+                      {...props} 
+                    />
+                  );
+                }
+                return <a href={href} style={{ color: theme.primary }} {...props} />;
+              },
+              code: ({node, ...props}) => <span style={{fontFamily: 'monospace', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${theme.border}`, padding: '2px 6px', borderRadius: '6px', color: theme.primary, fontSize: '0.9em', fontWeight: 700}} {...props} />,
+              p: ({node, ...props}) => <span {...props} />,
+            }}
+          >
+            {slide.heading.replace(/~~(.*?)~~/g, "[$1](highlight)")}
+          </ReactMarkdown>
         </h2>
       )}
       {slide.subheading && (
@@ -1035,7 +1063,35 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
           letterSpacing: -0.5,
           opacity: 0.9,
         }}>
-          {slide.subheading}
+          <ReactMarkdown
+            components={{
+              strong: ({node, ...props}) => <span style={{color: theme.primary, fontWeight: 900}} {...props} />,
+              em: ({node, ...props}) => <span style={{color: theme.accent, fontWeight: 900, fontStyle: 'normal'}} {...props} />,
+              del: ({node, ...props}) => <span style={{textDecoration: 'none', background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, borderBottom: `3px solid ${theme.accent}`, padding: '2px 6px', borderRadius: '4px', fontWeight: 900}} {...props} />,
+              a: ({node, href, ...props}) => {
+                if (href === 'highlight') {
+                  return (
+                    <span 
+                      style={{
+                        textDecoration: 'none', 
+                        background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, 
+                        borderBottom: `3px solid ${theme.accent}`, 
+                        padding: '2px 6px', 
+                        borderRadius: '4px', 
+                        fontWeight: 900
+                      }} 
+                      {...props} 
+                    />
+                  );
+                }
+                return <a href={href} style={{ color: theme.primary }} {...props} />;
+              },
+              code: ({node, ...props}) => <span style={{fontFamily: 'monospace', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${theme.border}`, padding: '2px 6px', borderRadius: '6px', color: theme.primary, fontSize: '0.9em', fontWeight: 700}} {...props} />,
+              p: ({node, ...props}) => <span {...props} />,
+            }}
+          >
+            {slide.subheading.replace(/~~(.*?)~~/g, "[$1](highlight)")}
+          </ReactMarkdown>
         </h3>
       )}
       {slide.content && (
