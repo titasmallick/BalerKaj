@@ -4,7 +4,7 @@
     "height": 1080,
     "fps": 30,
     "maxCharactersPerSlide": 750,
-    "themeName": "arctic-blue",
+    "themeName": "neon-emerald",
     "theme": {},
     "fontFamily": "outfit",
     "fontWeight": "600",
@@ -40,9 +40,9 @@
     "subtitle": "Workshop on ~~Economics~~",
     "durationInSeconds": 6,
     "theme": {
-      "background": "linear-gradient(135deg, #0e1b2d 0%, #050a11 100%)",
-      "textColor": "#eff6ff",
-      "subtitleColor": "#93c5fd"
+      "background": "linear-gradient(135deg, #062016 0%, #020a07 100%)",
+      "textColor": "#ecfdf5",
+      "subtitleColor": "#a7f3d0"
     }
   },
   "slides": [
@@ -170,9 +170,9 @@
     "website": "pearlsofgod.in",
     "durationInSeconds": 6,
     "theme": {
-      "background": "linear-gradient(135deg, #0e1b2d 0%, #050a11 100%)",
-      "textColor": "#eff6ff",
-      "subtitleColor": "#93c5fd"
+      "background": "linear-gradient(135deg, #062016 0%, #020a07 100%)",
+      "textColor": "#ecfdf5",
+      "subtitleColor": "#a7f3d0"
     }
   }
 }

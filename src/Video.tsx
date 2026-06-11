@@ -388,6 +388,60 @@ const ProgressBar: React.FC<{
   return <div style={styles} />;
 };
 
+const hasMarkdown = (text: string) => /~~|\*|_|`/.test(text);
+
+const MarkdownText: React.FC<{
+  text: string;
+  theme: Theme;
+  primaryColor?: string;
+}> = ({ text, theme, primaryColor }) => {
+  return (
+    <ReactMarkdown
+      components={{
+        strong: ({node, ...props}) => <span style={{color: primaryColor || theme.primary, fontWeight: 900}} {...props} />,
+        em: ({node, ...props}) => <span style={{color: theme.accent, fontWeight: 900, fontStyle: 'normal'}} {...props} />,
+        del: ({node, ...props}) => (
+          <span 
+            style={{
+              textDecoration: 'none', 
+              background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, 
+              borderBottom: `3px solid ${theme.accent}`, 
+              padding: '2px 6px', 
+              borderRadius: '4px', 
+              fontWeight: 900,
+              WebkitTextFillColor: theme.text,
+            }} 
+            {...props} 
+          />
+        ),
+        a: ({node, href, ...props}) => {
+          if (href === 'highlight') {
+            return (
+              <span 
+                style={{
+                  textDecoration: 'none', 
+                  background: `linear-gradient(120deg, ${theme.accent}35 0%, ${theme.accent}15 100%)`, 
+                  borderBottom: `3px solid ${theme.accent}`, 
+                  padding: '2px 6px', 
+                  borderRadius: '4px', 
+                  fontWeight: 900,
+                  WebkitTextFillColor: theme.text,
+                }} 
+                {...props} 
+              />
+            );
+          }
+          return <a href={href} style={{ color: theme.primary }} {...props} />;
+        },
+        code: ({node, ...props}) => <span style={{fontFamily: 'monospace', background: 'rgba(255,255,255,0.06)', border: `1.5px solid ${theme.border}`, padding: '2px 6px', borderRadius: '6px', color: theme.primary, fontSize: '0.9em', fontWeight: 700}} {...props} />,
+        p: ({node, ...props}) => <span {...props} />,
+      }}
+    >
+      {text.replace(/~~(.*?)~~/g, "[$1](highlight)")}
+    </ReactMarkdown>
+  );
+};
+
 // Title Page Component with Style Variations
 const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; fontFamily: string }> = ({ titlePage, theme, fontFamily }) => {
   const frame = useCurrentFrame();
@@ -428,7 +482,11 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             color: titlePage.theme.textColor || theme.text,
             letterSpacing: -1,
           }}>
-            {titlePage.title.split(' ').map((word, i) => i === 0 ? <strong key={i} style={{ fontWeight: 900, color: theme.primary }}>{word} </strong> : word + ' ')}
+            {hasMarkdown(titlePage.title) ? (
+              <MarkdownText text={titlePage.title} theme={theme} />
+            ) : (
+              titlePage.title.split(' ').map((word, i) => i === 0 ? <strong key={i} style={{ fontWeight: 900, color: theme.primary }}>{word} </strong> : word + ' ')
+            )}
           </h1>
           {titlePage.subtitle && (
             <p style={{
@@ -438,7 +496,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               marginTop: 20,
               letterSpacing: 1,
             }}>
-              {titlePage.subtitle}
+              <MarkdownText text={titlePage.subtitle} theme={theme} />
             </p>
           )}
         </div>
@@ -514,8 +572,9 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             color: titlePage.theme.textColor || theme.text,
             letterSpacing: isPortrait ? -2 : -4,
             textShadow: `6px 6px 0px ${theme.background}`,
+            textTransform: 'uppercase',
           }}>
-            {titlePage.title.toUpperCase()}
+            <MarkdownText text={titlePage.title} theme={theme} />
           </h1>
           
           {titlePage.subtitle && (
@@ -527,7 +586,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               letterSpacing: isPortrait ? 3 : 6,
               textTransform: 'uppercase',
             }}>
-              {titlePage.subtitle}
+              <MarkdownText text={titlePage.subtitle} theme={theme} />
             </p>
           )}
         </div>
@@ -578,7 +637,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
-            {titlePage.title}
+            <MarkdownText text={titlePage.title} theme={theme} />
           </h1>
           {titlePage.subtitle && (
             <p style={{
@@ -588,7 +647,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               marginTop: 25,
               opacity: 0.8,
             }}>
-              {titlePage.subtitle}
+              <MarkdownText text={titlePage.subtitle} theme={theme} />
             </p>
           )}
         </div>
@@ -638,7 +697,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             textTransform: 'uppercase',
             color: theme.background,
           }}>
-            {titlePage.title}
+            <MarkdownText text={titlePage.title} theme={theme} primaryColor={theme.accent} />
           </h1>
           {titlePage.subtitle && (
             <p style={{
@@ -650,7 +709,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               borderTop: `4px solid ${theme.background}`,
               paddingTop: 15,
             }}>
-              {titlePage.subtitle}
+              <MarkdownText text={titlePage.subtitle} theme={theme} primaryColor={theme.accent} />
             </p>
           )}
         </div>
@@ -710,8 +769,9 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             color: theme.text,
             letterSpacing: isPortrait ? -1 : -2,
             textShadow: `0 0 15px ${theme.primary}, 0 0 30px ${theme.primary}`,
+            textTransform: 'uppercase',
           }}>
-            {titlePage.title.toUpperCase()}
+            <MarkdownText text={titlePage.title} theme={theme} />
           </h1>
           
           {titlePage.subtitle && (
@@ -723,7 +783,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               letterSpacing: 2,
               textShadow: `0 0 8px ${theme.secondary}`,
             }}>
-              &gt;&gt; {titlePage.subtitle}
+              &gt;&gt; <MarkdownText text={titlePage.subtitle} theme={theme} />
             </p>
           )}
         </div>
@@ -764,7 +824,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             color: theme.text,
             letterSpacing: -1,
           }}>
-            {titlePage.title}
+            <MarkdownText text={titlePage.title} theme={theme} />
           </h1>
           {titlePage.subtitle && (
             <p style={{
@@ -777,7 +837,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               lineHeight: 1.4,
               maxWidth: 600,
             }}>
-              {titlePage.subtitle}
+              <MarkdownText text={titlePage.subtitle} theme={theme} />
             </p>
           )}
         </div>
@@ -821,7 +881,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             letterSpacing: 4,
             lineHeight: 1,
           }}>
-            {titlePage.subtitle ? titlePage.subtitle.split(' ')[0] : 'INTRO'}
+            {titlePage.subtitle ? titlePage.subtitle.replace(/~~/g, '').split(' ')[0] : 'INTRO'}
           </div>
         </div>
 
@@ -850,7 +910,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
               lineHeight: 1.1,
               letterSpacing: -2,
             }}>
-              {titlePage.title}
+              <MarkdownText text={titlePage.title} theme={theme} />
             </h1>
             {titlePage.subtitle && (
               <p style={{
@@ -860,7 +920,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
                 color: theme.secondary,
                 marginTop: 20,
               }}>
-                {titlePage.subtitle}
+                <MarkdownText text={titlePage.subtitle} theme={theme} />
               </p>
             )}
           </div>
@@ -896,7 +956,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
           letterSpacing: -3,
           textShadow: `8px 8px 0px ${theme.background}`,
         }}>
-          {titlePage.title}
+          <MarkdownText text={titlePage.title} theme={theme} />
         </h1>
         {titlePage.subtitle && (
           <p style={{
@@ -907,7 +967,7 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
             letterSpacing: 2,
             textTransform: 'uppercase',
           }}>
-            {titlePage.subtitle}
+            <MarkdownText text={titlePage.subtitle} theme={theme} />
           </p>
         )}
         <div style={{
@@ -1342,11 +1402,11 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
           paddingLeft: isPortrait ? 25 : 40,
         }}>
           <h1 style={{ fontSize: isPortrait ? 50 : 76, fontWeight: 900, color: theme.primary, margin: 0, letterSpacing: -1 }}>
-            {endPage.title}
+            <MarkdownText text={endPage.title} theme={theme} />
           </h1>
           {endPage.subtitle && (
             <p style={{ fontSize: isPortrait ? 20 : 28, fontWeight: 400, color: theme.text, marginTop: 15 }}>
-              {endPage.subtitle}
+              <MarkdownText text={endPage.subtitle} theme={theme} />
             </p>
           )}
           <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 10, fontSize: isPortrait ? 18 : 22, color: theme.secondary }}>
@@ -1397,12 +1457,12 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
           boxShadow: `${isPortrait ? 10 : 20}px ${isPortrait ? 10 : 20}px 0px rgba(0,0,0,0.5)`,
           maxWidth: "85%",
         }}>
-          <h1 style={{ fontSize: isPortrait ? 48 : 80, fontWeight: 900, color: theme.primary, margin: 0, textShadow: `6px 6px 0px ${theme.background}` }}>
-            {endPage.title.toUpperCase()}
+          <h1 style={{ fontSize: isPortrait ? 48 : 80, fontWeight: 900, color: theme.primary, margin: 0, textShadow: `6px 6px 0px ${theme.background}`, textTransform: 'uppercase' }}>
+            <MarkdownText text={endPage.title} theme={theme} />
           </h1>
           {endPage.subtitle && (
             <p style={{ fontSize: isPortrait ? 18 : 24, fontWeight: 800, color: theme.secondary, letterSpacing: isPortrait ? 2 : 4, textTransform: 'uppercase', marginTop: 15 }}>
-              {endPage.subtitle}
+              <MarkdownText text={endPage.subtitle} theme={theme} />
             </p>
           )}
           <div style={{ height: 2, background: theme.border, width: 100, margin: '25px auto' }} />
@@ -1452,11 +1512,11 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
         }}>
           <div>
             <h1 style={{ fontSize: isPortrait ? 48 : 76, fontWeight: 900, color: theme.primary, margin: 0 }}>
-              {endPage.title}
+              <MarkdownText text={endPage.title} theme={theme} />
             </h1>
             {endPage.subtitle && (
               <p style={{ fontSize: isPortrait ? 18 : 22, fontWeight: 700, color: theme.secondary, marginTop: 10 }}>
-                {endPage.subtitle}
+                <MarkdownText text={endPage.subtitle} theme={theme} />
               </p>
             )}
           </div>
@@ -1507,7 +1567,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
             textTransform: 'uppercase',
             color: theme.background,
           }}>
-            {endPage.title}
+            <MarkdownText text={endPage.title} theme={theme} primaryColor={theme.accent} />
           </h1>
           {endPage.subtitle && (
             <p style={{
@@ -1517,7 +1577,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
               margin: 0,
               textTransform: 'uppercase',
             }}>
-              {endPage.subtitle}
+              <MarkdownText text={endPage.subtitle} theme={theme} primaryColor={theme.accent} />
             </p>
           )}
           <div style={{
@@ -1578,8 +1638,9 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
             color: theme.text,
             letterSpacing: isPortrait ? -1 : -2,
             textShadow: `0 0 15px ${theme.primary}`,
+            textTransform: 'uppercase',
           }}>
-            {endPage.title.toUpperCase()}
+            <MarkdownText text={endPage.title} theme={theme} />
           </h1>
           
           {endPage.subtitle && (
@@ -1590,7 +1651,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
               marginTop: 20,
               letterSpacing: 2,
             }}>
-              // {endPage.subtitle}
+              // <MarkdownText text={endPage.subtitle} theme={theme} />
             </p>
           )}
 
@@ -1632,7 +1693,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
             lineHeight: 1.1,
             color: theme.text,
           }}>
-            {endPage.title}
+            <MarkdownText text={endPage.title} theme={theme} />
           </h1>
           {endPage.subtitle && (
             <p style={{
@@ -1643,7 +1704,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
               marginTop: 20,
               letterSpacing: 1,
             }}>
-              {endPage.subtitle}
+              <MarkdownText text={endPage.subtitle} theme={theme} />
             </p>
           )}
 
@@ -1721,7 +1782,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
               lineHeight: 1.1,
               letterSpacing: -2,
             }}>
-              {endPage.title}
+              <MarkdownText text={endPage.title} theme={theme} />
             </h1>
             {endPage.subtitle && (
               <p style={{
@@ -1731,7 +1792,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
                 color: theme.secondary,
                 marginTop: 15,
               }}>
-                {endPage.subtitle}
+                <MarkdownText text={endPage.subtitle} theme={theme} />
               </p>
             )}
             <div style={{
@@ -1784,7 +1845,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
             letterSpacing: -2,
             textShadow: `6px 6px 0px ${theme.background}`,
           }}>
-            {endPage.title}
+            <MarkdownText text={endPage.title} theme={theme} />
           </h1>
           {endPage.subtitle && (
             <p style={{
@@ -1795,7 +1856,7 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
               letterSpacing: 3,
               marginTop: 15,
             }}>
-              {endPage.subtitle}
+              <MarkdownText text={endPage.subtitle} theme={theme} />
             </p>
           )}
         </div>
