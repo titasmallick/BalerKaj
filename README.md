@@ -91,7 +91,15 @@ Open `config.json` in a text editor to customize styling, branding, and layouts.
   "fps": 30,
   "maxCharactersPerSlide": 450,      // Text splits into next slide if it exceeds this threshold
   "themeName": "royal-indigo",       // Select from the 10 available themes below
-  "theme": {}                        // Individual color overrides (background, cardBg, text, border, etc.)
+  "theme": {},                       // Individual color overrides (background, cardBg, text, border, etc.)
+  "fontFamily": "outfit",            // Typography font choices: outfit, montserrat, playfair, inter, courier
+  "fontWeight": "600",               // Typography font weights: 100 to 900
+  "progressBar": {
+    "show": true,                    // Show an animated progress bar
+    "position": "bottom",            // Position of progress bar: top or bottom
+    "color": "#fdf800",              // Hex color override (blank to use theme primary)
+    "height": 8                      // Height of progress bar in px
+  }
 }
 ```
 

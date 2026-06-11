@@ -4,8 +4,16 @@
     "height": 1080,
     "fps": 30,
     "maxCharactersPerSlide": 450,
-    "themeName": "royal-indigo",
-    "theme": {}
+    "themeName": "radiant-gold",
+    "theme": {},
+    "fontFamily": "outfit",
+    "fontWeight": "600",
+    "progressBar": {
+      "show": true,
+      "position": "bottom",
+      "color": "",
+      "height": 8
+    }
   },
   "audio": {
     "musicPath": "assets/music/paulyudin-background-music-478744.mp3",

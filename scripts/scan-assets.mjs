@@ -222,7 +222,15 @@ async function scan() {
       fps: 30,
       maxCharactersPerSlide: 450,
       themeName: 'royal-indigo',
-      theme: {}
+      theme: {},
+      fontFamily: 'outfit',
+      fontWeight: '600',
+      progressBar: {
+        show: true,
+        position: 'bottom',
+        color: '',
+        height: 8
+      }
     },
     audio: {
       musicPath: musicPath || 'assets/music/background.mp3',

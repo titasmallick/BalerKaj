@@ -12,9 +12,27 @@ import {
   Video as RemotionVideo,
 } from "remotion";
 import ReactMarkdown from "react-markdown";
-import { loadFont } from "@remotion/google-fonts/Outfit";
+import { loadFont as loadOutfit } from "@remotion/google-fonts/Outfit";
+import { loadFont as loadMontserrat } from "@remotion/google-fonts/Montserrat";
+import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
+import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
+import { loadFont as loadCourier } from "@remotion/google-fonts/CourierPrime";
 
-const { fontFamily } = loadFont();
+const outfitFont = loadOutfit();
+const montserratFont = loadMontserrat();
+const playfairFont = loadPlayfair();
+const interFont = loadInter();
+const courierFont = loadCourier();
+
+export const FONTS: Record<string, string> = {
+  outfit: outfitFont.fontFamily,
+  montserrat: montserratFont.fontFamily,
+  playfair: playfairFont.fontFamily,
+  inter: interFont.fontFamily,
+  courier: courierFont.fontFamily,
+};
+
+const fontFamily = outfitFont.fontFamily;
 
 // Premium Theme definitions
 export interface Theme {
@@ -141,6 +159,14 @@ export interface VideoProps {
     fps: number;
     themeName?: string;
     theme?: Partial<Theme>;
+    fontFamily?: string;
+    fontWeight?: string;
+    progressBar?: {
+      show: boolean;
+      position: 'top' | 'bottom';
+      color?: string;
+      height?: number;
+    };
   };
   audio: {
     musicPath: string;
@@ -324,8 +350,43 @@ const BrandingOverlay: React.FC<{ branding: VideoProps['branding']; theme: Theme
   );
 };
 
+// Dynamic progress bar component
+const ProgressBar: React.FC<{
+  show: boolean;
+  position: 'top' | 'bottom';
+  color?: string;
+  height?: number;
+  theme: Theme;
+  currentFrame: number;
+  totalDuration: number;
+}> = ({ show, position, color, height = 8, theme, currentFrame, totalDuration }) => {
+  if (!show) return null;
+  const progress = currentFrame / totalDuration;
+  const barColor = color || theme.primary;
+
+  const styles: React.CSSProperties = {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height,
+    background: barColor,
+    boxShadow: `0 0 12px ${barColor}`,
+    transform: `scaleX(${progress})`,
+    transformOrigin: 'left',
+    zIndex: 600,
+  };
+
+  if (position === 'top') {
+    styles.top = 0;
+  } else {
+    styles.bottom = 0;
+  }
+
+  return <div style={styles} />;
+};
+
 // Title Page Component with Style Variations
-const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme }> = ({ titlePage, theme }) => {
+const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; fontFamily: string }> = ({ titlePage, theme, fontFamily }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const style = titlePage.style || 'standard';
@@ -920,7 +981,7 @@ const MediaRenderer: React.FC<{ path: string; type: 'image' | 'video'; startFrom
 };
 
 // Content Slide Component with Responsive Aspect-Ratio Support
-const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: number; theme: Theme }> = ({ slide, index, totalSlides, theme }) => {
+const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: number; theme: Theme; fontFamily: string; fontWeight: string }> = ({ slide, index, totalSlides, theme, fontFamily, fontWeight }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const isPortrait = width < height; // Check aspect ratio
@@ -966,7 +1027,7 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
           fontSize: isPortrait ? contentFontSize * 0.85 : contentFontSize,
           color: theme.text,
           lineHeight: 1.5,
-          fontWeight: 600,
+          fontWeight: (fontWeight as any) || 600,
           opacity: 0.95
         }}>
           <ReactMarkdown
@@ -1162,7 +1223,7 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
 };
 
 // End Page Component with Style Variations
-const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme }> = ({ endPage, theme }) => {
+const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFamily: string }> = ({ endPage, theme, fontFamily }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const style = endPage.style || 'standard';
@@ -1694,6 +1755,13 @@ export const Video: React.FC<VideoProps> = (config) => {
     ...video.theme
   } as Theme;
 
+  // Resolve Custom Typography
+  const resolvedFontFamily = video.fontFamily && FONTS[video.fontFamily.toLowerCase()] 
+    ? FONTS[video.fontFamily.toLowerCase()] 
+    : fontFamily;
+  
+  const resolvedFontWeight = video.fontWeight || "600";
+
   // Background Audio Fade-in / Fade-out interpolation
   const fadeInFrames = (audio.fadeInInSeconds ?? 2) * fps;
   const fadeOutFrames = (audio.fadeOutInSeconds ?? 2) * fps;
@@ -1742,23 +1810,36 @@ export const Video: React.FC<VideoProps> = (config) => {
         endSecs={endPage.durationInSeconds}
       />
 
+      {/* Dynamic Progress Bar Overlay */}
+      {video.progressBar?.show && (
+        <ProgressBar
+          show={video.progressBar.show}
+          position={video.progressBar.position || 'bottom'}
+          color={video.progressBar.color}
+          height={video.progressBar.height}
+          theme={theme}
+          currentFrame={currentFrame}
+          totalDuration={totalDuration}
+        />
+      )}
+
       {/* Dynamic Slide Sequencing */}
       <Series>
         {titlePage.show && (
           <Series.Sequence durationInFrames={titlePage.durationInSeconds * fps}>
-            <TitleSlide titlePage={titlePage} theme={theme} />
+            <TitleSlide titlePage={titlePage} theme={theme} fontFamily={resolvedFontFamily} />
           </Series.Sequence>
         )}
         
         {slides.map((slide, index) => (
           <Series.Sequence key={slide.id} durationInFrames={slide.durationInSeconds * fps}>
-            <ContentSlide slide={slide} index={index} totalSlides={slides.length} theme={theme} />
+            <ContentSlide slide={slide} index={index} totalSlides={slides.length} theme={theme} fontFamily={resolvedFontFamily} fontWeight={resolvedFontWeight} />
           </Series.Sequence>
         ))}
 
         {endPage.show && (
           <Series.Sequence durationInFrames={endPage.durationInSeconds * fps}>
-            <EndSlide endPage={endPage} theme={theme} />
+            <EndSlide endPage={endPage} theme={theme} fontFamily={resolvedFontFamily} />
           </Series.Sequence>
         )}
       </Series>
