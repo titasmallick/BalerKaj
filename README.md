@@ -224,5 +224,5 @@ To render high-quality still images/covers from specific compositions:
 ---
 
 ## 📄 License
-ISC
+MIT
 
