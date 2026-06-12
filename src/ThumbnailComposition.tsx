@@ -16,6 +16,8 @@ export interface Props {
   className?: string;
   authorName?: string;
   badgeText?: string;
+  themeName?: string;
+  iconName?: string;
 }
 
 const THEMES = [
@@ -55,34 +57,54 @@ const DynamicIcon: React.FC<{ name: string; size: number; color: string; style?:
   return <IconComponent size={size} color={color} style={style} />;
 };
 
-export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, className, authorName, badgeText }) => {
-  const theme = getThemeForClass(className || "");
+const THEME_KEYS = [
+  "radiant-gold",
+  "neon-emerald",
+  "electric-amethyst",
+  "crimson-pulse",
+  "cyber-cyan",
+  "midnight-magenta",
+  "arctic-blue",
+  "volcanic-orange",
+  "slate-silver",
+  "royal-indigo"
+];
+
+export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, className, authorName, badgeText, themeName, iconName }) => {
+  let theme = getThemeForClass(className || "");
+  if (themeName) {
+    const idx = THEME_KEYS.indexOf(themeName);
+    if (idx !== -1) {
+      theme = THEMES[idx];
+    }
+  }
   const { width, height } = useVideoConfig();
+  const isPortrait = width < height;
 
   return (
     <AbsoluteFill style={{ backgroundColor: theme.background, overflow: "hidden", fontFamily }}>
       {/* Background blobs */}
       <div style={{
           position: 'absolute',
-          width: 1400,
-          height: 1400,
+          width: isPortrait ? 800 : 1400,
+          height: isPortrait ? 800 : 1400,
           borderRadius: '50%',
           background: theme.primary,
           filter: 'blur(120px)',
           opacity: 0.15,
-          top: -300,
-          right: -300,
+          top: isPortrait ? -200 : -300,
+          right: isPortrait ? -200 : -300,
       }} />
       <div style={{
           position: 'absolute',
-          width: 1200,
-          height: 1200,
+          width: isPortrait ? 700 : 1200,
+          height: isPortrait ? 700 : 1200,
           borderRadius: '50%',
           background: theme.secondary,
           filter: 'blur(120px)',
           opacity: 0.12,
-          bottom: -300,
-          left: -300,
+          bottom: isPortrait ? -200 : -300,
+          left: isPortrait ? -200 : -300,
       }} />
 
       {/* Grid Pattern */}
@@ -91,22 +113,22 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
         inset: 0,
         opacity: 0.1,
         backgroundImage: `linear-gradient(${theme.primary} 1px, transparent 1px), linear-gradient(90deg, ${theme.primary} 1px, transparent 1px)`,
-        backgroundSize: '100px 100px',
+        backgroundSize: isPortrait ? '50px 50px' : '100px 100px',
       }} />
 
       {/* Main Container */}
       <div style={{
           position: 'absolute',
-          inset: 60,
+          inset: isPortrait ? 40 : 60,
           background: theme.cardBg,
           backdropFilter: "blur(40px)",
-          borderRadius: 60,
-          border: `8px solid ${theme.primary}`,
-          padding: 80,
+          borderRadius: isPortrait ? 30 : 60,
+          border: `${isPortrait ? 6 : 8}px solid ${theme.primary}`,
+          padding: isPortrait ? "60px 40px" : 80,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          boxShadow: `30px 30px 0px rgba(0,0,0,0.5)`,
+          boxShadow: `20px 20px 0px rgba(0,0,0,0.5)`,
       }}>
           {/* Top Label */}
           {className && (
@@ -114,15 +136,15 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
                   display: 'inline-block',
                   background: theme.primary,
                   color: theme.background,
-                  padding: '12px 36px',
-                  borderRadius: 20,
-                  fontSize: 32,
+                  padding: isPortrait ? '8px 24px' : '12px 36px',
+                  borderRadius: isPortrait ? 12 : 20,
+                  fontSize: isPortrait ? 22 : 32,
                   fontWeight: 900,
                   textTransform: 'uppercase',
-                  letterSpacing: 4,
-                  marginBottom: 60,
+                  letterSpacing: isPortrait ? 2 : 4,
+                  marginBottom: isPortrait ? 30 : 60,
                   alignSelf: 'flex-start',
-                  boxShadow: `8px 8px 0px rgba(0,0,0,0.3)`,
+                  boxShadow: `6px 6px 0px rgba(0,0,0,0.3)`,
               }}>
                   {className}
               </div>
@@ -134,19 +156,21 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
-              marginBottom: 140,
+              marginBottom: isPortrait ? 80 : 140,
           }}>
               {/* Title */}
               <h1 style={{
-                  fontSize: title.length > 40 ? 100 : (title.length > 25 ? 120 : 160),
+                  fontSize: isPortrait 
+                    ? (title.length > 25 ? 90 : 120)
+                    : (title.length > 40 ? 100 : (title.length > 25 ? 120 : 160)),
                   fontWeight: 900,
                   color: theme.text,
                   lineHeight: 0.95,
-                  letterSpacing: title.length > 40 ? -4 : -6,
+                  letterSpacing: isPortrait ? -5 : (title.length > 40 ? -4 : -6),
                   margin: 0,
-                  textShadow: `10px 10px 0px ${theme.background}`,
+                  textShadow: `${isPortrait ? 10 : 8}px ${isPortrait ? 10 : 8}px 0px ${theme.background}`,
                   display: '-webkit-box',
-                  WebkitLineClamp: 3,
+                  WebkitLineClamp: 4,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
               }}>
@@ -156,13 +180,15 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
               {/* Subtitle */}
               {subtitle && (
                   <h2 style={{
-                      fontSize: title.length > 40 ? 50 : (title.length > 25 ? 60 : 80),
+                      fontSize: isPortrait
+                        ? (title.length > 25 ? 45 : 60)
+                        : (title.length > 40 ? 50 : (title.length > 25 ? 60 : 80)),
                       fontWeight: 700,
                       color: theme.secondary,
-                      marginTop: title.length > 40 ? 15 : 20,
+                      marginTop: isPortrait ? 20 : 20,
                       marginBottom: 0,
                       lineHeight: 1.1,
-                      letterSpacing: -2,
+                      letterSpacing: isPortrait ? -2 : -2,
                   }}>
                       {subtitle}
                   </h2>
@@ -172,33 +198,35 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
           {/* Bottom Bar */}
           <div style={{
               position: 'absolute',
-              bottom: 80,
-              left: 80,
-              right: 80,
+              bottom: isPortrait ? 50 : 80,
+              left: isPortrait ? 40 : 80,
+              right: isPortrait ? 40 : 80,
               display: 'flex',
+              flexDirection: isPortrait ? 'column' : 'row',
               justifyContent: 'space-between',
-              alignItems: 'center',
+              alignItems: isPortrait ? 'flex-start' : 'center',
+              gap: isPortrait ? 25 : 0,
           }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-                  <div style={{ background: theme.accent, width: 30, height: 30, borderRadius: '50%' }} />
-                  <span style={{ fontSize: 40, fontWeight: 900, color: theme.primary, textTransform: 'uppercase' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isPortrait ? 12 : 20 }}>
+                  <div style={{ background: theme.accent, width: isPortrait ? 16 : 30, height: isPortrait ? 16 : 30, borderRadius: '50%' }} />
+                  <span style={{ fontSize: isPortrait ? 26 : 40, fontWeight: 900, color: theme.primary, textTransform: 'uppercase' }}>
                       {authorName || "Titas Sir Biology"}
                   </span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: isPortrait ? 15 : 30, width: isPortrait ? '100%' : 'auto', justifyContent: isPortrait ? 'space-between' : 'flex-start' }}>
                   <div style={{ transform: 'rotate(-5deg)' }}>
-                      <DynamicIcon name="Microscope" size={100} color={theme.primary} />
+                      <DynamicIcon name={iconName || "Microscope"} size={isPortrait ? 60 : 100} color={theme.primary} />
                   </div>
                   <div style={{
                       background: theme.primary,
                       color: theme.background,
-                      padding: '8px 24px',
-                      borderRadius: 12,
-                      fontSize: 44,
+                      padding: isPortrait ? '6px 18px' : '8px 24px',
+                      borderRadius: isPortrait ? 8 : 12,
+                      fontSize: isPortrait ? 28 : 44,
                       fontWeight: 900,
                       textTransform: 'uppercase',
                       letterSpacing: 2,
-                      boxShadow: `8px 8px 0px rgba(0,0,0,0.3)`,
+                      boxShadow: `6px 6px 0px rgba(0,0,0,0.3)`,
                   }}>
                       {badgeText || "BIONOTES"}
                   </div>
@@ -213,16 +241,16 @@ export const ThumbnailComposition: React.FC<Props> = ({ id, title, subtitle, cla
         return (
           <div key={pos} style={{ 
             position: 'absolute', 
-            top: isTop ? 40 : 'auto', 
-            bottom: isTop ? 'auto' : 40, 
-            left: isLeft ? 40 : 'auto', 
-            right: isLeft ? 'auto' : 40, 
-            width: 100, 
-            height: 100, 
-            borderLeft: isLeft ? `6px solid ${theme.primary}` : 'none',
-            borderRight: isLeft ? 'none' : `6px solid ${theme.primary}`,
-            borderTop: isTop ? `6px solid ${theme.primary}` : 'none',
-            borderBottom: isTop ? 'none' : `6px solid ${theme.primary}`,
+            top: isTop ? (isPortrait ? 25 : 40) : 'auto', 
+            bottom: isTop ? 'auto' : (isPortrait ? 25 : 40), 
+            left: isLeft ? (isPortrait ? 25 : 40) : 'auto', 
+            right: isLeft ? 'auto' : (isPortrait ? 25 : 40), 
+            width: isPortrait ? 60 : 100, 
+            height: isPortrait ? 60 : 100, 
+            borderLeft: isLeft ? `${isPortrait ? 4 : 6}px solid ${theme.primary}` : 'none',
+            borderRight: isLeft ? 'none' : `${isPortrait ? 4 : 6}px solid ${theme.primary}`,
+            borderTop: isTop ? `${isPortrait ? 4 : 6}px solid ${theme.primary}` : 'none',
+            borderBottom: isTop ? 'none' : `${isPortrait ? 4 : 6}px solid ${theme.primary}`,
           }} />
         );
       })}

@@ -6,17 +6,24 @@ import { ThumbnailComposition } from "./ThumbnailComposition";
 import { ShortsComposition } from "./ShortsComposition";
 import { TeaserReelComposition } from "./TeaserReelComposition";
 import config from "../config.json";
+import configReels from "../config-reels.json";
 
 export const RemotionRoot: React.FC = () => {
   const fps = config.video.fps || 30;
   
-  // Calculate dynamic duration for MainVideo
-  const titleDuration = config.titlePage.show ? (config.titlePage.durationInSeconds || 3) * fps : 0;
-  const endDuration = config.endPage.show ? (config.endPage.durationInSeconds || 4) * fps : 0;
-  const slidesDuration = config.slides.reduce((acc, slide) => {
-    return acc + (slide.durationInSeconds || 5) * fps;
-  }, 0);
-  const totalDurationInFrames = titleDuration + slidesDuration + endDuration;
+  // Calculate dynamic duration for MainVideo using absolute timeline bounds
+  const totalDurationInFrames = Math.round(
+    config.endPage.show
+      ? ((config.endPage.startTime || 186.0) + (config.endPage.durationInSeconds || 8.832)) * fps
+      : 150
+  );
+
+  const reelsFps = configReels.video?.fps || 30;
+  const reelsDurationInFrames = Math.round(
+    configReels.endPage?.show
+      ? ((configReels.endPage.startTime || 116.356) + (configReels.endPage.durationInSeconds || 15.644)) * reelsFps
+      : 132 * reelsFps
+  );
 
   return (
     <>
@@ -29,6 +36,17 @@ export const RemotionRoot: React.FC = () => {
         width={config.video.width || 1920}
         height={config.video.height || 1080}
         defaultProps={config}
+      />
+
+      {/* 1b. Portrait Reels Video (1080x1920) */}
+      <Composition
+        id="Reels"
+        component={Video as any}
+        durationInFrames={reelsDurationInFrames > 0 ? reelsDurationInFrames : 150}
+        fps={reelsFps}
+        width={configReels.video.width || 1080}
+        height={configReels.video.height || 1920}
+        defaultProps={configReels as any}
       />
 
       {/* 2. Instagram Post (1080x1080) */}
@@ -59,11 +77,33 @@ export const RemotionRoot: React.FC = () => {
         height={1080}
         defaultProps={{
           id: "thumb",
-          title: config.titlePage.title || "Cell Cycle",
-          subtitle: config.titlePage.subtitle || "And Cell Division",
-          className: config.branding.logoText || "TITAS SIR",
-          authorName: config.branding.authorName || "TITAS SIR BIOLOGY",
-          badgeText: config.branding.badgeText || "BIONOTES"
+          title: config.titlePage.title || "Official School Anthem",
+          subtitle: config.branding.authorName || config.titlePage.subtitle || "Pearls Of God School",
+          className: config.branding.logoText || "School Anthem",
+          authorName: config.branding.authorName || "Pearls Of God",
+          badgeText: config.branding.badgeText || "ANTHEM",
+          iconName: config.video.iconName || "Music",
+          themeName: config.video.themeName || "neon-emerald"
+        }}
+      />
+
+      {/* 3b. Portrait Reels Thumbnail (1080x1920) */}
+      <Composition
+        id="ReelsThumbnail"
+        component={ThumbnailComposition as any}
+        durationInFrames={1}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          id: "reels-thumb",
+          title: configReels.titlePage?.title || "Official School Anthem",
+          subtitle: configReels.branding?.authorName || configReels.titlePage?.subtitle || "Pearls Of God School",
+          className: configReels.branding?.logoText || "School Anthem",
+          authorName: configReels.branding?.authorName || "Pearls Of God",
+          badgeText: configReels.branding?.badgeText || "ANTHEM",
+          iconName: configReels.video?.iconName || "Music",
+          themeName: configReels.video?.themeName || "radiant-gold"
         }}
       />
 

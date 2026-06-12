@@ -10,26 +10,19 @@ import {
   staticFile,
   Img,
   Video as RemotionVideo,
+  Sequence,
 } from "remotion";
 import ReactMarkdown from "react-markdown";
 import { loadFont as loadOutfit } from "@remotion/google-fonts/Outfit";
-import { loadFont as loadMontserrat } from "@remotion/google-fonts/Montserrat";
-import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
-import { loadFont as loadInter } from "@remotion/google-fonts/Inter";
-import { loadFont as loadCourier } from "@remotion/google-fonts/CourierPrime";
 
 const outfitFont = loadOutfit();
-const montserratFont = loadMontserrat();
-const playfairFont = loadPlayfair();
-const interFont = loadInter();
-const courierFont = loadCourier();
 
 export const FONTS: Record<string, string> = {
   outfit: outfitFont.fontFamily,
-  montserrat: montserratFont.fontFamily,
-  playfair: playfairFont.fontFamily,
-  inter: interFont.fontFamily,
-  courier: courierFont.fontFamily,
+  montserrat: outfitFont.fontFamily,
+  playfair: outfitFont.fontFamily,
+  inter: outfitFont.fontFamily,
+  courier: outfitFont.fontFamily,
 };
 
 const fontFamily = outfitFont.fontFamily;
@@ -147,10 +140,13 @@ export interface SlideData {
   heading: string;
   subheading?: string;
   content: string;
+  startTime?: number;
+  endTime?: number;
   durationInSeconds: number;
   mediaStartFromInSeconds?: number;
   layout: 'split-media-right' | 'split-media-left' | 'full-background-media' | 'text-only' | 'media-only';
   transition: string;
+  lines?: Array<Array<{ text: string; relStart: number; relEnd: number }>>;
 }
 
 export interface VideoProps {
@@ -162,6 +158,8 @@ export interface VideoProps {
     theme?: Partial<Theme>;
     fontFamily?: string;
     fontWeight?: string;
+    disableAnimations?: boolean;
+    iconName?: string;
     progressBar?: {
       show: boolean;
       position: 'top' | 'bottom';
@@ -189,9 +187,11 @@ export interface VideoProps {
   };
   titlePage: {
     show: boolean;
-    style?: 'standard' | 'minimalist' | 'thumbnail' | 'glassmorphic' | 'bold-brutalism' | 'cyberpunk-neon' | 'editorial-serif' | 'split-reveal';
+    style?: 'standard' | 'minimalist' | 'thumbnail' | 'glassmorphic' | 'glassmorphic-media' | 'bold-brutalism' | 'cyberpunk-neon' | 'editorial-serif' | 'split-reveal';
     title: string;
     subtitle: string;
+    media?: string;
+    mediaType?: 'image' | 'video';
     durationInSeconds: number;
     theme: {
       background: string;
@@ -207,6 +207,7 @@ export interface VideoProps {
     subtitle: string;
     contact: string;
     website: string;
+    startTime?: number;
     durationInSeconds: number;
     theme: {
       background: string;
@@ -216,37 +217,18 @@ export interface VideoProps {
   };
 }
 
-// Background Blob component for smooth floating lights
+// Background Blob component for smooth floating lights (Optimized out for performance)
 const Blob: React.FC<{ color: string; size: number; x: number; y: number; delay: number }> = ({ color, size, x, y, delay }) => {
-  const frame = useCurrentFrame();
-  const scale = 1 + Math.sin((frame + delay) / 45) * 0.12;
-  const moveX = Math.sin((frame + delay) / 50) * 60;
-  const moveY = Math.cos((frame + delay) / 60) * 60;
-
-  return (
-    <div style={{
-      position: 'absolute',
-      width: size,
-      height: size,
-      borderRadius: '50%',
-      background: color,
-      filter: 'blur(120px)',
-      opacity: 0.15,
-      left: x + moveX,
-      top: y + moveY,
-      transform: `scale(${scale})`,
-    }} />
-  );
+  return null;
 };
 
-// Premium dynamic background
+// Premium dynamic background (Optimized to use native hardware CSS radial-gradients)
 const BackgroundEffects: React.FC<{ theme: Theme }> = ({ theme }) => {
   return (
-    <AbsoluteFill style={{ backgroundColor: theme.background, overflow: "hidden" }}>
-      <Blob color={theme.primary} size={900} x={-150} y={-150} delay={0} />
-      <Blob color={theme.secondary} size={700} x={1300} y={300} delay={1200} />
-      <Blob color={theme.accent} size={800} x={450} y={-200} delay={2400} />
-      
+    <AbsoluteFill style={{ 
+      background: `radial-gradient(circle at 10% 20%, ${theme.primary}12 0%, transparent 50%), radial-gradient(circle at 90% 80%, ${theme.secondary}12 0%, transparent 50%), radial-gradient(circle at 50% 10%, ${theme.accent}08 0%, transparent 40%), ${theme.background}`,
+      overflow: "hidden" 
+    }}>
       {/* Subtle scientific grid lines */}
       <div style={{
         position: 'absolute',
@@ -443,18 +425,22 @@ const MarkdownText: React.FC<{
 };
 
 // Title Page Component with Style Variations
-const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; fontFamily: string }> = ({ titlePage, theme, fontFamily }) => {
+const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; fontFamily: string; disableAnimations?: boolean }> = ({ titlePage, theme, fontFamily, disableAnimations }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const style = titlePage.style || 'standard';
   const isPortrait = width < height;
   
-  const entrance = spring({ frame, fps, config: { damping: 11, stiffness: 120 } });
+  const entrance = disableAnimations
+    ? 1
+    : spring({ frame, fps, config: { damping: 11, stiffness: 120 } });
   
   const exitStart = durationInFrames - 12;
-  const opacity = frame >= exitStart 
-    ? interpolate(frame, [exitStart, durationInFrames - 1], [1, 0], { extrapolateLeft: 'clamp' })
-    : 1;
+  const opacity = disableAnimations
+    ? 1
+    : frame >= exitStart 
+      ? interpolate(frame, [exitStart, durationInFrames - 1], [1, 0], { extrapolateLeft: 'clamp' })
+      : 1;
 
   const bgStyle: React.CSSProperties = titlePage.theme.background.includes('gradient')
     ? { backgroundImage: titlePage.theme.background }
@@ -594,7 +580,101 @@ const TitleSlide: React.FC<{ titlePage: VideoProps['titlePage']; theme: Theme; f
     );
   }
 
-  // 3. GLASSMORPHIC STYLE
+  // 3. GLASSMORPHIC MEDIA STYLE
+  if (style === 'glassmorphic-media') {
+    const splitDirection = isPortrait ? 'column' : 'row';
+    return (
+      <AbsoluteFill style={{ ...bgStyle, justifyContent: "center", alignItems: "center", opacity }}>
+        <BackgroundEffects theme={theme} />
+        
+        {/* Extra pulsing backglow */}
+        <div style={{
+          position: 'absolute',
+          width: isPortrait ? 300 : 500,
+          height: isPortrait ? 300 : 500,
+          borderRadius: '50%',
+          background: theme.accent,
+          filter: 'blur(150px)',
+          opacity: 0.2 + Math.sin(frame / 20) * 0.05,
+          zIndex: 5,
+        }} />
+
+        <div style={{
+          transform: `scale(${interpolate(entrance, [0, 1], [0.9, 1])})`,
+          opacity: entrance,
+          fontFamily,
+          zIndex: 10,
+          padding: isPortrait ? "40px 24px" : "65px 75px",
+          background: 'rgba(255,255,255,0.03)',
+          backdropFilter: "blur(60px)",
+          borderRadius: isPortrait ? 30 : 50,
+          border: `2px solid rgba(255,255,255,0.25)`,
+          boxShadow: `0 50px 100px rgba(0,0,0,0.45), inset 0 0 40px rgba(255,255,255,0.05)`,
+          maxWidth: "90%",
+          display: 'flex',
+          flexDirection: splitDirection,
+          gap: isPortrait ? 30 : 60,
+          alignItems: 'center',
+        }}>
+          {/* Text container */}
+          <div style={{ flex: 1.2, display: 'flex', flexDirection: 'column', justifyContent: 'center', textAlign: isPortrait ? 'center' : 'left' }}>
+            <h1 style={{ 
+              fontSize: isPortrait ? 64 : 70, 
+              fontWeight: 900, 
+              margin: 0, 
+              lineHeight: 1.15, 
+              color: titlePage.theme.textColor || theme.text,
+              letterSpacing: -1.5,
+              background: `linear-gradient(to right, ${theme.text} 30%, ${theme.primary} 100%)`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}>
+              <MarkdownText text={titlePage.title} theme={theme} />
+            </h1>
+            {titlePage.subtitle && (
+              <p style={{
+                fontSize: isPortrait ? 28 : 30,
+                fontWeight: 500,
+                color: titlePage.theme.subtitleColor || theme.secondary,
+                marginTop: 20,
+                opacity: 0.8,
+                whiteSpace: 'pre-wrap',
+              }}>
+                <MarkdownText text={titlePage.subtitle} theme={theme} />
+              </p>
+            )}
+          </div>
+          
+          {/* Media Container */}
+          {titlePage.media && (
+            <div style={{
+              flex: 0.8,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+              <div style={{
+                width: isPortrait ? 260 : 340,
+                height: isPortrait ? 260 : 340,
+                borderRadius: '50%',
+                border: `6px solid ${theme.primary}`,
+                boxShadow: `0 15px 35px rgba(0,0,0,0.5)`,
+                overflow: 'hidden',
+                transform: `scale(${interpolate(entrance, [0, 1], [0.8, 1])})`,
+              }}>
+                <Img 
+                  src={staticFile(titlePage.media)} 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
+  // 4. GLASSMORPHIC STYLE
   if (style === 'glassmorphic') {
     return (
       <AbsoluteFill style={{ ...bgStyle, justifyContent: "center", alignItems: "center", opacity }}>
@@ -1043,19 +1123,100 @@ const MediaRenderer: React.FC<{ path: string; type: 'image' | 'video'; startFrom
   );
 };
 
+const KaraokeText: React.FC<{
+  lines: Array<Array<{ text: string; relStart: number; relEnd: number }>>;
+  currentFrame: number;
+  fps: number;
+  theme: Theme;
+  fontFamily: string;
+  fontWeight: string;
+}> = ({ lines, currentFrame, fps, theme, fontFamily, fontWeight }) => {
+  const currentTime = currentFrame / fps;
+  const { width, height } = useVideoConfig();
+  const isPortrait = width < height;
+  
+  // Calculate total number of characters to decide font size
+  const totalChars = lines.reduce((acc, line) => acc + line.reduce((lAcc, word) => lAcc + word.text.length, 0), 0);
+  const fontSize = isPortrait
+    ? (totalChars > 250 ? 38 : totalChars > 150 ? 46 : 54)
+    : (totalChars > 250 ? 28 : totalChars > 150 ? 34 : 40);
+
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px',
+      alignItems: 'flex-start',
+      width: '100%',
+      justifyContent: 'center',
+    }}>
+      {lines.map((line, lineIdx) => (
+        <div key={lineIdx} style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          lineHeight: '1.4',
+          fontFamily,
+          fontSize,
+          fontWeight: fontWeight || 'bold',
+        }}>
+          {line.map((word, wordIdx) => {
+            const isActive = currentTime >= word.relStart && currentTime <= word.relEnd;
+            const isSpoken = currentTime > word.relEnd;
+            
+            // Smooth and easy to read active word highlight (no bouncy jumping animations)
+            const scale = isActive ? 1.05 : 1;
+            const translateY = 0;
+            
+            let color = 'rgba(255,255,255,0.35)';
+            let textShadow = 'none';
+            
+            if (isActive) {
+              color = theme.accent;
+              textShadow = `0 0 8px ${theme.accent}aa`;
+            } else if (isSpoken) {
+              color = theme.text;
+            }
+            
+            return (
+              <span
+                key={wordIdx}
+                style={{
+                  display: 'inline-block',
+                  transform: `translateY(${translateY}px) scale(${scale})`,
+                  color,
+                  textShadow,
+                  marginRight: '12px',
+                  transition: 'color 0.15s ease, text-shadow 0.15s ease',
+                  transformOrigin: 'center bottom',
+                }}
+              >
+                {word.text}
+              </span>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 // Content Slide Component with Responsive Aspect-Ratio Support
-const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: number; theme: Theme; fontFamily: string; fontWeight: string }> = ({ slide, index, totalSlides, theme, fontFamily, fontWeight }) => {
+const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: number; theme: Theme; fontFamily: string; fontWeight: string; disableAnimations?: boolean }> = ({ slide, index, totalSlides, theme, fontFamily, fontWeight, disableAnimations }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const isPortrait = width < height; // Check aspect ratio
 
-  const entrance = spring({ frame, fps, config: { damping: 13, stiffness: 120 } });
+  const entrance = disableAnimations
+    ? 1
+    : spring({ frame, fps, config: { damping: 13, stiffness: 120 } });
   
   const exitFrames = 15;
   const exitStart = durationInFrames - exitFrames;
-  const opacity = frame >= exitStart
-    ? interpolate(frame, [exitStart, durationInFrames - 1], [1, 0], { extrapolateLeft: 'clamp' })
-    : 1;
+  const opacity = disableAnimations
+    ? 1
+    : frame >= exitStart
+      ? interpolate(frame, [exitStart, durationInFrames - 1], [1, 0], { extrapolateLeft: 'clamp' })
+      : 1;
 
   const textTranslateY = interpolate(entrance, [0, 1], [40, 0]);
   const mediaScale = interpolate(entrance, [0, 1], [0.95, 1]);
@@ -1154,7 +1315,16 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
           </ReactMarkdown>
         </h3>
       )}
-      {slide.content && (
+      {slide.lines ? (
+        <KaraokeText
+          lines={slide.lines}
+          currentFrame={frame}
+          fps={fps}
+          theme={theme}
+          fontFamily={fontFamily}
+          fontWeight={fontWeight}
+        />
+      ) : slide.content && (
         <div style={{
           fontFamily,
           fontSize: isPortrait ? contentFontSize * 0.85 : contentFontSize,
@@ -1331,8 +1501,32 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
     }
   };
 
+  const entranceProgress = disableAnimations
+    ? 1
+    : spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
+  const entranceTranslateX = disableAnimations ? 0 : interpolate(entranceProgress, [0, 1], [40, 0]);
+  const entranceScale = disableAnimations ? 1 : interpolate(entranceProgress, [0, 1], [0.98, 1]);
+  const entranceOpacity = disableAnimations
+    ? 1
+    : interpolate(frame, [0, 10], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+
+  const exitProgress = disableAnimations
+    ? 0
+    : spring({ frame: Math.max(0, frame - exitStart), fps, config: { damping: 14, stiffness: 100 } });
+  const exitTranslateX = disableAnimations ? 0 : interpolate(exitProgress, [0, 1], [0, -40]);
+  const exitScale = disableAnimations ? 1 : interpolate(exitProgress, [0, 1], [1, 0.98]);
+  const exitOpacity = disableAnimations
+    ? 1
+    : frame >= exitStart
+      ? interpolate(frame, [exitStart, durationInFrames - 1], [1, 0], { extrapolateLeft: 'clamp' })
+      : 1;
+
+  const combinedTranslateX = entranceTranslateX + exitTranslateX;
+  const combinedScale = entranceScale * exitScale;
+  const combinedOpacity = entranceOpacity * exitOpacity;
+
   return (
-    <AbsoluteFill style={{ padding: isPortrait ? 40 : 75, opacity }}>
+    <AbsoluteFill style={{ padding: isPortrait ? 40 : 75 }}>
       <BackgroundEffects theme={theme} />
       
       {/* Slide Glass Container */}
@@ -1347,13 +1541,25 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
           padding: isPortrait ? '40px 30px' : '60px 75px',
           boxShadow: '0 25px 50px rgba(0, 0, 0, 0.45)',
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
+          transform: `translateX(${combinedTranslateX}px) scale(${combinedScale})`,
+          opacity: combinedOpacity,
         }}>
           {getLayout()}
         </div>
       )}
       
-      {slide.layout === 'full-background-media' && getLayout()}
+      {slide.layout === 'full-background-media' && (
+        <div style={{
+          width: '100%',
+          height: '100%',
+          position: 'relative',
+          transform: `translateX(${combinedTranslateX}px) scale(${combinedScale})`,
+          opacity: combinedOpacity,
+        }}>
+          {getLayout()}
+        </div>
+      )}
 
       {/* Modern Slide Page Indicator */}
       <div style={{
@@ -1377,13 +1583,15 @@ const ContentSlide: React.FC<{ slide: SlideData; index: number; totalSlides: num
 };
 
 // End Page Component with Style Variations
-const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFamily: string }> = ({ endPage, theme, fontFamily }) => {
+const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFamily: string; disableAnimations?: boolean }> = ({ endPage, theme, fontFamily, disableAnimations }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
   const style = endPage.style || 'standard';
   const isPortrait = width < height;
 
-  const entrance = spring({ frame, fps, config: { damping: 12, stiffness: 100 } });
+  const entrance = disableAnimations
+    ? 1
+    : spring({ frame, fps, config: { damping: 12, stiffness: 100 } });
 
   const bgStyle: React.CSSProperties = endPage.theme.background.includes('gradient')
     ? { backgroundImage: endPage.theme.background }
@@ -1511,11 +1719,11 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
           gap: 25,
         }}>
           <div>
-            <h1 style={{ fontSize: isPortrait ? 48 : 76, fontWeight: 900, color: theme.primary, margin: 0 }}>
+            <h1 style={{ fontSize: isPortrait ? 64 : 76, fontWeight: 900, color: theme.primary, margin: 0 }}>
               <MarkdownText text={endPage.title} theme={theme} />
             </h1>
             {endPage.subtitle && (
-              <p style={{ fontSize: isPortrait ? 18 : 22, fontWeight: 700, color: theme.secondary, marginTop: 10 }}>
+              <p style={{ fontSize: isPortrait ? 28 : 22, fontWeight: 700, color: theme.secondary, marginTop: 10 }}>
                 <MarkdownText text={endPage.subtitle} theme={theme} />
               </p>
             )}
@@ -1523,12 +1731,12 @@ const EndSlide: React.FC<{ endPage: VideoProps['endPage']; theme: Theme; fontFam
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 15, width: '100%' }}>
             {endPage.contact && (
-              <div style={{ background: 'rgba(255,255,255,0.05)', padding: isPortrait ? '8px 16px' : '12px 24px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', fontSize: isPortrait ? 18 : 22, color: theme.text }}>
+              <div style={{ background: 'rgba(255,255,255,0.05)', padding: isPortrait ? '12px 20px' : '12px 24px', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', fontSize: isPortrait ? 24 : 22, color: theme.text }}>
                 {endPage.contact}
               </div>
             )}
             {endPage.website && (
-              <div style={{ fontSize: isPortrait ? 18 : 20, color: theme.accent, fontWeight: 900 }}>
+              <div style={{ fontSize: isPortrait ? 24 : 20, color: theme.accent, fontWeight: 900 }}>
                 {endPage.website}
               </div>
             )}
@@ -1978,26 +2186,34 @@ export const Video: React.FC<VideoProps> = (config) => {
         />
       )}
 
-      {/* Dynamic Slide Sequencing */}
-      <Series>
-        {titlePage.show && (
-          <Series.Sequence durationInFrames={titlePage.durationInSeconds * fps}>
-            <TitleSlide titlePage={titlePage} theme={theme} fontFamily={resolvedFontFamily} />
-          </Series.Sequence>
-        )}
-        
-        {slides.map((slide, index) => (
-          <Series.Sequence key={slide.id} durationInFrames={slide.durationInSeconds * fps}>
-            <ContentSlide slide={slide} index={index} totalSlides={slides.length} theme={theme} fontFamily={resolvedFontFamily} fontWeight={resolvedFontWeight} />
-          </Series.Sequence>
-        ))}
+      {/* Dynamic Slide Sequencing using Absolute Timeline Positioning */}
+      {titlePage.show && (
+        <Sequence 
+          from={0} 
+          durationInFrames={Math.round(titlePage.durationInSeconds * fps)}
+        >
+          <TitleSlide titlePage={titlePage} theme={theme} fontFamily={resolvedFontFamily} disableAnimations={video.disableAnimations} />
+        </Sequence>
+      )}
+      
+      {slides.map((slide, index) => (
+        <Sequence 
+          key={slide.id} 
+          from={Math.round((slide.startTime ?? 0) * fps)} 
+          durationInFrames={Math.round(slide.durationInSeconds * fps)}
+        >
+          <ContentSlide slide={slide} index={index} totalSlides={slides.length} theme={theme} fontFamily={resolvedFontFamily} fontWeight={resolvedFontWeight} disableAnimations={video.disableAnimations} />
+        </Sequence>
+      ))}
 
-        {endPage.show && (
-          <Series.Sequence durationInFrames={endPage.durationInSeconds * fps}>
-            <EndSlide endPage={endPage} theme={theme} fontFamily={resolvedFontFamily} />
-          </Series.Sequence>
-        )}
-      </Series>
+      {endPage.show && (
+        <Sequence 
+          from={Math.round((endPage.startTime ?? 186.0) * fps)} 
+          durationInFrames={Math.round(endPage.durationInSeconds * fps)}
+        >
+          <EndSlide endPage={endPage} theme={theme} fontFamily={resolvedFontFamily} disableAnimations={video.disableAnimations} />
+        </Sequence>
+      )}
     </AbsoluteFill>
   );
 };

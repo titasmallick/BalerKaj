@@ -229,6 +229,8 @@ async function scan() {
       theme: {},
       fontFamily: 'outfit',
       fontWeight: '600',
+      disableAnimations: false,
+      iconName: 'Music',
       progressBar: {
         show: true,
         position: 'bottom',

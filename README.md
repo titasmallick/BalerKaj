@@ -102,6 +102,7 @@ Open `config.json` in a text editor to customize styling, branding, and layouts.
   "theme": {},                       // Individual color overrides (background, cardBg, text, border, etc.)
   "fontFamily": "outfit",            // Typography font choices: outfit, montserrat, playfair, inter, courier
   "fontWeight": "600",               // Typography font weights: 100 to 900
+  "disableAnimations": false,        // Set to true to disable all spring animations and transitions for standard slides
   "progressBar": {
     "show": true,                    // Show an animated progress bar
     "position": "bottom",            // Position of progress bar: top or bottom

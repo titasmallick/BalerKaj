@@ -1,0 +1,1193 @@
+{
+  "video": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "maxCharactersPerSlide": 750,
+    "themeName": "radiant-gold",
+    "theme": {},
+    "fontFamily": "outfit",
+    "fontWeight": "600",
+    "disableAnimations": false,
+    "progressBar": {
+      "show": true,
+      "position": "bottom",
+      "color": "",
+      "height": 8
+    }
+  },
+  "audio": {
+    "musicPath": "assets/pog/School Anthem_01.wav",
+    "volume": 1,
+    "loop": false,
+    "fadeInInSeconds": 0.5,
+    "fadeOutInSeconds": 3
+  },
+  "branding": {
+    "showLogo": true,
+    "logoPath": "",
+    "logoText": "PEARLS OF GOD",
+    "position": "top-left",
+    "size": 50,
+    "opacity": 0.9,
+    "persistent": true,
+    "authorName": "Pearls Of God School",
+    "badgeText": "ANTHEM"
+  },
+  "titlePage": {
+    "show": true,
+    "style": "glassmorphic-media",
+    "title": "Official School Anthem",
+    "subtitle": "Lyrics by ~~Mr. Arnab Chatterjee~~  \nVice Principal, Pearls Of God",
+    "media": "assets/pog/vice principal.jpeg",
+    "mediaType": "image",
+    "durationInSeconds": 13,
+    "theme": {
+      "background": "linear-gradient(135deg, #1A150E 0%, #0c0905 100%)",
+      "textColor": "#FFFAF0",
+      "subtitleColor": "#FB923C"
+    }
+  },
+  "slides": [
+    {
+      "id": "slide_1",
+      "folder": "slide_1",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 1",
+      "content": "Oyster catchers bring up oyster From the bottom of the Sea",
+      "startTime": 13,
+      "endTime": 18.858,
+      "durationInSeconds": 5.8580000000000005,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Oyster",
+            "relStart": 0.08000000000000007,
+            "relEnd": 0.6600000000000001
+          },
+          {
+            "text": "catchers",
+            "relStart": 0.8599999999999994,
+            "relEnd": 1.2200000000000006
+          },
+          {
+            "text": "bring",
+            "relStart": 1.3200000000000003,
+            "relEnd": 1.5
+          },
+          {
+            "text": "up",
+            "relStart": 1.5399999999999991,
+            "relEnd": 1.6899999999999995
+          },
+          {
+            "text": "oyster",
+            "relStart": 1.7400000000000002,
+            "relEnd": 2.3000000000000007
+          }
+        ],
+        [
+          {
+            "text": "From",
+            "relStart": 2.84,
+            "relEnd": 3.0199999999999996
+          },
+          {
+            "text": "the",
+            "relStart": 3.059000000000001,
+            "relEnd": 3.1999999999999993
+          },
+          {
+            "text": "bottom",
+            "relStart": 3.2600000000000016,
+            "relEnd": 3.6799999999999997
+          },
+          {
+            "text": "of",
+            "relStart": 3.780000000000001,
+            "relEnd": 3.91
+          },
+          {
+            "text": "the",
+            "relStart": 4,
+            "relEnd": 4.16
+          },
+          {
+            "text": "Sea",
+            "relStart": 4.440000000000001,
+            "relEnd": 5.02
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_2",
+      "folder": "slide_2",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 2",
+      "content": "Pearls are found inside the oyster They are our students",
+      "startTime": 19,
+      "endTime": 23.711,
+      "durationInSeconds": 4.7109999999999985,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Pearls",
+            "relStart": 0.46000000000000085,
+            "relEnd": 0.879999999999999
+          },
+          {
+            "text": "are",
+            "relStart": 0.8999999999999986,
+            "relEnd": 1.120000000000001
+          },
+          {
+            "text": "found",
+            "relStart": 1.2399999999999984,
+            "relEnd": 1.4600000000000009
+          },
+          {
+            "text": "inside",
+            "relStart": 1.5,
+            "relEnd": 1.8599999999999994
+          },
+          {
+            "text": "the",
+            "relStart": 1.8999999999999986,
+            "relEnd": 2
+          },
+          {
+            "text": "oyster",
+            "relStart": 2.120000000000001,
+            "relEnd": 2.66
+          }
+        ],
+        [
+          {
+            "text": "They",
+            "relStart": 2.8299999999999983,
+            "relEnd": 3.0599999999999987
+          },
+          {
+            "text": "are",
+            "relStart": 3.0799999999999983,
+            "relEnd": 3.219999999999999
+          },
+          {
+            "text": "our",
+            "relStart": 3.3200000000000003,
+            "relEnd": 3.4800000000000004
+          },
+          {
+            "text": "students",
+            "relStart": 3.539999999999999,
+            "relEnd": 4.399999999999999
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_3",
+      "folder": "slide_3",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 3",
+      "content": "Pupils are protected by God The Pearls are protected by oyster",
+      "startTime": 26,
+      "endTime": 31.482,
+      "durationInSeconds": 5.481999999999999,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Pupils",
+            "relStart": 0,
+            "relEnd": 0.6600000000000001
+          },
+          {
+            "text": "are",
+            "relStart": 0.7399999999999984,
+            "relEnd": 1
+          },
+          {
+            "text": "protected",
+            "relStart": 1.0599999999999987,
+            "relEnd": 1.7800000000000011
+          },
+          {
+            "text": "by",
+            "relStart": 1.879999999999999,
+            "relEnd": 2.0799999999999983
+          },
+          {
+            "text": "God",
+            "relStart": 2.2600000000000016,
+            "relEnd": 2.6000000000000014
+          }
+        ],
+        [
+          {
+            "text": "The",
+            "relStart": 2.6799999999999997,
+            "relEnd": 2.8200000000000003
+          },
+          {
+            "text": "Pearls",
+            "relStart": 2.879999999999999,
+            "relEnd": 3.4400000000000013
+          },
+          {
+            "text": "are",
+            "relStart": 3.4800000000000004,
+            "relEnd": 3.620000000000001
+          },
+          {
+            "text": "protected",
+            "relStart": 3.6400000000000006,
+            "relEnd": 4.239999999999998
+          },
+          {
+            "text": "by",
+            "relStart": 4.280000000000001,
+            "relEnd": 4.640000000000001
+          },
+          {
+            "text": "oyster",
+            "relStart": 4.719999999999999,
+            "relEnd": 5.300000000000001
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_4",
+      "folder": "slide_4",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 4",
+      "content": "\"Pearls of god\", I saw her growing up Like a new born baby She used to cherish Each and every moment",
+      "startTime": 32,
+      "endTime": 39.357,
+      "durationInSeconds": 7.356999999999999,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "\"Pearls",
+            "relStart": 0,
+            "relEnd": 0.0799999999999983
+          },
+          {
+            "text": "of",
+            "relStart": 0.11899999999999977,
+            "relEnd": 0.240000000000002
+          },
+          {
+            "text": "god\",",
+            "relStart": 0.28000000000000114,
+            "relEnd": 0.6799999999999997
+          },
+          {
+            "text": "I",
+            "relStart": 0.8200000000000003,
+            "relEnd": 0.8400000000000034
+          },
+          {
+            "text": "saw",
+            "relStart": 0.9600000000000009,
+            "relEnd": 1.2199999999999989
+          },
+          {
+            "text": "her",
+            "relStart": 1.259999999999998,
+            "relEnd": 1.3999999999999986
+          },
+          {
+            "text": "growing",
+            "relStart": 1.4200000000000017,
+            "relEnd": 1.8800000000000026
+          },
+          {
+            "text": "up",
+            "relStart": 1.9799999999999969,
+            "relEnd": 2.1400000000000006
+          }
+        ],
+        [
+          {
+            "text": "Like",
+            "relStart": 2.200000000000003,
+            "relEnd": 2.4399999999999977
+          },
+          {
+            "text": "a",
+            "relStart": 2.5,
+            "relEnd": 2.539999999999999
+          },
+          {
+            "text": "new",
+            "relStart": 2.6199999999999974,
+            "relEnd": 3.1799999999999997
+          },
+          {
+            "text": "born",
+            "relStart": 3.259999999999998,
+            "relEnd": 3.8599999999999994
+          },
+          {
+            "text": "baby",
+            "relStart": 4.219999999999999,
+            "relEnd": 4.399999999999999
+          }
+        ],
+        [
+          {
+            "text": "She",
+            "relStart": 4.460000000000001,
+            "relEnd": 4.640000000000001
+          },
+          {
+            "text": "used",
+            "relStart": 4.68,
+            "relEnd": 4.780000000000001
+          },
+          {
+            "text": "to",
+            "relStart": 4.880000000000003,
+            "relEnd": 5.439999999999998
+          },
+          {
+            "text": "cherish",
+            "relStart": 5.479999999999997,
+            "relEnd": 5.659999999999997
+          }
+        ],
+        [
+          {
+            "text": "Each",
+            "relStart": 5.68,
+            "relEnd": 5.799999999999997
+          },
+          {
+            "text": "and",
+            "relStart": 5.920000000000002,
+            "relEnd": 6.159999999999997
+          },
+          {
+            "text": "every",
+            "relStart": 6.299999999999997,
+            "relEnd": 7.219999999999999
+          },
+          {
+            "text": "moment",
+            "relStart": 0,
+            "relEnd": 7.356999999999999
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_5",
+      "folder": "slide_5",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 5",
+      "content": "Teachers and students Represent as her best friends They used to give her companion In good and bad times",
+      "startTime": 42,
+      "endTime": 53.493,
+      "durationInSeconds": 11.493000000000002,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Teachers",
+            "relStart": 0,
+            "relEnd": 0.7800000000000011
+          },
+          {
+            "text": "and",
+            "relStart": 1.0600000000000023,
+            "relEnd": 1.259999999999998
+          },
+          {
+            "text": "students",
+            "relStart": 1.4399999999999977,
+            "relEnd": 2.299999999999997
+          }
+        ],
+        [
+          {
+            "text": "Represent",
+            "relStart": 2.6599999999999966,
+            "relEnd": 3.460000000000001
+          },
+          {
+            "text": "as",
+            "relStart": 3.520000000000003,
+            "relEnd": 3.6400000000000006
+          },
+          {
+            "text": "her",
+            "relStart": 3.6799999999999997,
+            "relEnd": 3.799999999999997
+          },
+          {
+            "text": "best",
+            "relStart": 3.8599999999999994,
+            "relEnd": 4.18
+          },
+          {
+            "text": "friends",
+            "relStart": 4.280000000000001,
+            "relEnd": 4.840000000000003
+          }
+        ],
+        [
+          {
+            "text": "They",
+            "relStart": 5.659999999999997,
+            "relEnd": 5.799999999999997
+          },
+          {
+            "text": "used",
+            "relStart": 5.859999999999999,
+            "relEnd": 6.020000000000003
+          },
+          {
+            "text": "to",
+            "relStart": 6.060000000000002,
+            "relEnd": 6.18
+          },
+          {
+            "text": "give",
+            "relStart": 6.240000000000002,
+            "relEnd": 6.600000000000001
+          },
+          {
+            "text": "her",
+            "relStart": 6.659999999999997,
+            "relEnd": 7.119999999999997
+          },
+          {
+            "text": "companion",
+            "relStart": 7.439999999999998,
+            "relEnd": 8.439999999999998
+          }
+        ],
+        [
+          {
+            "text": "In",
+            "relStart": 8.479999999999997,
+            "relEnd": 8.600000000000001
+          },
+          {
+            "text": "good",
+            "relStart": 8.659999999999997,
+            "relEnd": 8.899999999999999
+          },
+          {
+            "text": "and",
+            "relStart": 8.920000000000002,
+            "relEnd": 9.009999999999998
+          },
+          {
+            "text": "bad",
+            "relStart": 9.100000000000001,
+            "relEnd": 9.299999999999997
+          },
+          {
+            "text": "times",
+            "relStart": 9.46,
+            "relEnd": 11.439999999999998
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_6",
+      "folder": "slide_6",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 6",
+      "content": "Like a brave warrior She used to fight Every obstacle That stood her way",
+      "startTime": 54,
+      "endTime": 61.346,
+      "durationInSeconds": 7.3459999999999965,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Like",
+            "relStart": 0.21999999999999886,
+            "relEnd": 0.4200000000000017
+          },
+          {
+            "text": "a",
+            "relStart": 0.4799999999999969,
+            "relEnd": 0.5200000000000031
+          },
+          {
+            "text": "brave",
+            "relStart": 0.6199999999999974,
+            "relEnd": 1.259999999999998
+          },
+          {
+            "text": "warrior",
+            "relStart": 1.3400000000000034,
+            "relEnd": 2.3999999999999986
+          }
+        ],
+        [
+          {
+            "text": "She",
+            "relStart": 3.219999999999999,
+            "relEnd": 3.4200000000000017
+          },
+          {
+            "text": "used",
+            "relStart": 3.479999999999997,
+            "relEnd": 3.6000000000000014
+          },
+          {
+            "text": "to",
+            "relStart": 3.6400000000000006,
+            "relEnd": 3.759999999999998
+          },
+          {
+            "text": "fight",
+            "relStart": 3.8400000000000034,
+            "relEnd": 4.240000000000002
+          }
+        ],
+        [
+          {
+            "text": "Every",
+            "relStart": 4.280000000000001,
+            "relEnd": 4.600000000000001
+          },
+          {
+            "text": "obstacle",
+            "relStart": 4.719999999999999,
+            "relEnd": 5.520000000000003
+          }
+        ],
+        [
+          {
+            "text": "That",
+            "relStart": 5.840000000000003,
+            "relEnd": 6.100000000000001
+          },
+          {
+            "text": "stood",
+            "relStart": 6.18,
+            "relEnd": 6.5
+          },
+          {
+            "text": "her",
+            "relStart": 6.539999999999999,
+            "relEnd": 6.630000000000003
+          },
+          {
+            "text": "way",
+            "relStart": 6.700000000000003,
+            "relEnd": 7.020000000000003
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_7",
+      "folder": "slide_7",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 7",
+      "content": "Sometimes like a lone-swimmer She used to struggle Against every wave She used to be pricked By the thorns of life",
+      "startTime": 73,
+      "endTime": 82.929,
+      "durationInSeconds": 9.929000000000002,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Sometimes",
+            "relStart": 0.7800000000000011,
+            "relEnd": 1.5999999999999943
+          },
+          {
+            "text": "like",
+            "relStart": 1.6599999999999966,
+            "relEnd": 1.8400000000000034
+          },
+          {
+            "text": "a",
+            "relStart": 1.9000000000000057,
+            "relEnd": 1.9399999999999977
+          },
+          {
+            "text": "lone-swimmer",
+            "relStart": 2.0600000000000023,
+            "relEnd": 2.299999999999997
+          }
+        ],
+        [
+          {
+            "text": "She",
+            "relStart": 2.3599999999999994,
+            "relEnd": 2.799999999999997
+          },
+          {
+            "text": "used",
+            "relStart": 3.219999999999999,
+            "relEnd": 3.3799999999999955
+          },
+          {
+            "text": "to",
+            "relStart": 3.480000000000004,
+            "relEnd": 3.6200000000000045
+          },
+          {
+            "text": "struggle",
+            "relStart": 3.6599999999999966,
+            "relEnd": 3.739999999999995
+          }
+        ],
+        [
+          {
+            "text": "Against",
+            "relStart": 3.8400000000000034,
+            "relEnd": 4.239999999999995
+          },
+          {
+            "text": "every",
+            "relStart": 4.700000000000003,
+            "relEnd": 5.079999999999998
+          },
+          {
+            "text": "wave",
+            "relStart": 5.099999999999994,
+            "relEnd": 5.400000000000006
+          }
+        ],
+        [
+          {
+            "text": "She",
+            "relStart": 5.480000000000004,
+            "relEnd": 5.959999999999994
+          },
+          {
+            "text": "used",
+            "relStart": 6.420000000000002,
+            "relEnd": 6.579999999999998
+          },
+          {
+            "text": "to",
+            "relStart": 6.680000000000007,
+            "relEnd": 6.819999999999993
+          },
+          {
+            "text": "be",
+            "relStart": 6.900000000000006,
+            "relEnd": 7.040000000000006
+          },
+          {
+            "text": "pricked",
+            "relStart": 7.099999999999994,
+            "relEnd": 7.260000000000005
+          }
+        ],
+        [
+          {
+            "text": "By",
+            "relStart": 7.420000000000002,
+            "relEnd": 7.799999999999997
+          },
+          {
+            "text": "the",
+            "relStart": 8.459999999999994,
+            "relEnd": 8.620000000000005
+          },
+          {
+            "text": "thorns",
+            "relStart": 8.659999999999997,
+            "relEnd": 8.780000000000001
+          },
+          {
+            "text": "of",
+            "relStart": 8.819999999999993,
+            "relEnd": 9.260000000000005
+          },
+          {
+            "text": "life",
+            "relStart": 9.299999999999997,
+            "relEnd": 9.379999999999995
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_8",
+      "folder": "slide_8",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 8",
+      "content": "But instead of breaking down She marches like a Martial Pearls of God is flowing Like a smooth-flowing river",
+      "startTime": 83,
+      "endTime": 91.659,
+      "durationInSeconds": 8.659000000000006,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "But",
+            "relStart": 0.060000000000002274,
+            "relEnd": 0.21999999999999886
+          },
+          {
+            "text": "instead",
+            "relStart": 0.23999999999999488,
+            "relEnd": 0.7000000000000028
+          },
+          {
+            "text": "of",
+            "relStart": 0.7600000000000051,
+            "relEnd": 1
+          },
+          {
+            "text": "breaking",
+            "relStart": 1.019999999999996,
+            "relEnd": 1.6599999999999966
+          },
+          {
+            "text": "down",
+            "relStart": 1.8599999999999994,
+            "relEnd": 2.219999999999999
+          }
+        ],
+        [
+          {
+            "text": "She",
+            "relStart": 2.6400000000000006,
+            "relEnd": 2.780000000000001
+          },
+          {
+            "text": "marches",
+            "relStart": 2.8400000000000034,
+            "relEnd": 3.219999999999999
+          },
+          {
+            "text": "like",
+            "relStart": 3.280000000000001,
+            "relEnd": 3.4399999999999977
+          },
+          {
+            "text": "a",
+            "relStart": 3.519999999999996,
+            "relEnd": 3.5400000000000063
+          },
+          {
+            "text": "Martial",
+            "relStart": 3.6400000000000006,
+            "relEnd": 4.260000000000005
+          }
+        ],
+        [
+          {
+            "text": "Pearls",
+            "relStart": 4.439999999999998,
+            "relEnd": 4.680000000000007
+          },
+          {
+            "text": "of",
+            "relStart": 4.719999999999999,
+            "relEnd": 4.840000000000003
+          },
+          {
+            "text": "God",
+            "relStart": 4.8799999999999955,
+            "relEnd": 5.060000000000002
+          },
+          {
+            "text": "is",
+            "relStart": 5.079999999999998,
+            "relEnd": 5.200000000000003
+          },
+          {
+            "text": "flowing",
+            "relStart": 5.260000000000005,
+            "relEnd": 5.6200000000000045
+          }
+        ],
+        [
+          {
+            "text": "Like",
+            "relStart": 5.680000000000007,
+            "relEnd": 5.819999999999993
+          },
+          {
+            "text": "a",
+            "relStart": 5.8799999999999955,
+            "relEnd": 5.939999999999998
+          },
+          {
+            "text": "smooth-flowing",
+            "relStart": 6,
+            "relEnd": 6.3799999999999955
+          },
+          {
+            "text": "river",
+            "relStart": 6.439999999999998,
+            "relEnd": 6.790000000000006
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_9",
+      "folder": "slide_9",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 9",
+      "content": "The fact is that she can rise Even from ashes As her inner strength dazzles Like nothing else",
+      "startTime": 92,
+      "endTime": 99.773,
+      "durationInSeconds": 7.772999999999996,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "The",
+            "relStart": 0.0799999999999983,
+            "relEnd": 0.18000000000000682
+          },
+          {
+            "text": "fact",
+            "relStart": 0.23999999999999488,
+            "relEnd": 0.46999999999999886
+          },
+          {
+            "text": "is",
+            "relStart": 0.5,
+            "relEnd": 0.6200000000000045
+          },
+          {
+            "text": "that",
+            "relStart": 0.6800000000000068,
+            "relEnd": 0.9200000000000017
+          },
+          {
+            "text": "she",
+            "relStart": 1,
+            "relEnd": 1.2800000000000011
+          },
+          {
+            "text": "can",
+            "relStart": 1.4399999999999977,
+            "relEnd": 1.7600000000000051
+          },
+          {
+            "text": "rise",
+            "relStart": 1.8599999999999994,
+            "relEnd": 2.3400000000000034
+          }
+        ],
+        [
+          {
+            "text": "Even",
+            "relStart": 2.680000000000007,
+            "relEnd": 3
+          },
+          {
+            "text": "from",
+            "relStart": 3.0400000000000063,
+            "relEnd": 3.239999999999995
+          },
+          {
+            "text": "ashes",
+            "relStart": 3.319999999999993,
+            "relEnd": 3.8400000000000034
+          }
+        ],
+        [
+          {
+            "text": "As",
+            "relStart": 3.8799999999999955,
+            "relEnd": 4.060000000000002
+          },
+          {
+            "text": "her",
+            "relStart": 4.079999999999998,
+            "relEnd": 4.180000000000007
+          },
+          {
+            "text": "inner",
+            "relStart": 4.319999999999993,
+            "relEnd": 4.6200000000000045
+          },
+          {
+            "text": "strength",
+            "relStart": 4.799999999999997,
+            "relEnd": 5.359999999999999
+          },
+          {
+            "text": "dazzles",
+            "relStart": 5.459999999999994,
+            "relEnd": 6.200000000000003
+          }
+        ],
+        [
+          {
+            "text": "Like",
+            "relStart": 6.280000000000001,
+            "relEnd": 6.5
+          },
+          {
+            "text": "nothing",
+            "relStart": 6.659999999999997,
+            "relEnd": 7.079999999999998
+          },
+          {
+            "text": "else",
+            "relStart": 7.159999999999997,
+            "relEnd": 7.560000000000002
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_10",
+      "folder": "slide_10",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 10",
+      "content": "Let us wish her good fate In her undaunted struggle",
+      "startTime": 100.688,
+      "endTime": 105.062,
+      "durationInSeconds": 4.373999999999995,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "Let",
+            "relStart": 0,
+            "relEnd": 0.17199999999999704
+          },
+          {
+            "text": "us",
+            "relStart": 0.2120000000000033,
+            "relEnd": 0.3119999999999976
+          },
+          {
+            "text": "wish",
+            "relStart": 0.3719999999999999,
+            "relEnd": 0.5519999999999925
+          },
+          {
+            "text": "her",
+            "relStart": 0.5720000000000027,
+            "relEnd": 0.7120000000000033
+          },
+          {
+            "text": "good",
+            "relStart": 0.7719999999999914,
+            "relEnd": 1.0120000000000005
+          },
+          {
+            "text": "fate",
+            "relStart": 1.152000000000001,
+            "relEnd": 1.5519999999999925
+          }
+        ],
+        [
+          {
+            "text": "In",
+            "relStart": 1.5919999999999987,
+            "relEnd": 1.7319999999999993
+          },
+          {
+            "text": "her",
+            "relStart": 1.7920000000000016,
+            "relEnd": 1.9320000000000022
+          },
+          {
+            "text": "undaunted",
+            "relStart": 1.9920000000000044,
+            "relEnd": 2.9920000000000044
+          },
+          {
+            "text": "struggle",
+            "relStart": 3.0319999999999965,
+            "relEnd": 3.872
+          }
+        ]
+      ]
+    },
+    {
+      "id": "slide_11",
+      "folder": "slide_11",
+      "media": null,
+      "mediaType": null,
+      "heading": "School Anthem - Verse 11",
+      "content": "I heard the winds whispering Only sky is her limit Pearls Of God have grown up And march like a Martial",
+      "startTime": 105.323,
+      "endTime": 116.356,
+      "durationInSeconds": 11.033000000000001,
+      "mediaStartFromInSeconds": 0,
+      "layout": "text-only",
+      "transition": "fade",
+      "lines": [
+        [
+          {
+            "text": "I",
+            "relStart": 0.017000000000010118,
+            "relEnd": 0.05700000000000216
+          },
+          {
+            "text": "heard",
+            "relStart": 0.11700000000000443,
+            "relEnd": 0.29700000000001125
+          },
+          {
+            "text": "the",
+            "relStart": 0.3370000000000033,
+            "relEnd": 0.4370000000000118
+          },
+          {
+            "text": "winds",
+            "relStart": 0.5170000000000101,
+            "relEnd": 0.9170000000000016
+          },
+          {
+            "text": "whispering",
+            "relStart": 1.3370000000000033,
+            "relEnd": 2.257000000000005
+          }
+        ],
+        [
+          {
+            "text": "Only",
+            "relStart": 3.307000000000002,
+            "relEnd": 3.5970000000000084
+          },
+          {
+            "text": "sky",
+            "relStart": 3.6570000000000107,
+            "relEnd": 4.097000000000008
+          },
+          {
+            "text": "is",
+            "relStart": 4.177000000000007,
+            "relEnd": 4.317000000000007
+          },
+          {
+            "text": "her",
+            "relStart": 4.337000000000003,
+            "relEnd": 4.507000000000005
+          },
+          {
+            "text": "limit",
+            "relStart": 4.577000000000012,
+            "relEnd": 5.1370000000000005
+          }
+        ],
+        [
+          {
+            "text": "Pearls",
+            "relStart": 6.51700000000001,
+            "relEnd": 6.737000000000009
+          },
+          {
+            "text": "Of",
+            "relStart": 6.757000000000005,
+            "relEnd": 6.927000000000007
+          },
+          {
+            "text": "God",
+            "relStart": 6.927000000000007,
+            "relEnd": 7.297000000000011
+          },
+          {
+            "text": "have",
+            "relStart": 7.337000000000003,
+            "relEnd": 7.617000000000004
+          },
+          {
+            "text": "grown",
+            "relStart": 7.6370000000000005,
+            "relEnd": 8.137
+          },
+          {
+            "text": "up",
+            "relStart": 8.257000000000005,
+            "relEnd": 8.717000000000013
+          }
+        ],
+        [
+          {
+            "text": "And",
+            "relStart": 8.757000000000005,
+            "relEnd": 8.897000000000006
+          },
+          {
+            "text": "march",
+            "relStart": 8.957000000000008,
+            "relEnd": 9.277000000000001
+          },
+          {
+            "text": "like",
+            "relStart": 9.297000000000011,
+            "relEnd": 9.537000000000006
+          },
+          {
+            "text": "a",
+            "relStart": 9.597000000000008,
+            "relEnd": 9.677000000000007
+          },
+          {
+            "text": "Martial",
+            "relStart": 9.757000000000005,
+            "relEnd": 10.917000000000002
+          }
+        ]
+      ]
+    }
+  ],
+  "endPage": {
+    "show": true,
+    "style": "glassmorphic",
+    "title": "Pearls of God",
+    "subtitle": "An English Medium Co-ed School  \nDebaipukur Hindmotor, ICSE/ISC  \n~~Admission Open~~",
+    "contact": "Contact: pearlsofgod@yahoo.com",
+    "website": "pearlsofgod.in",
+    "startTime": 116.356,
+    "durationInSeconds": 15.644,
+    "theme": {
+      "background": "linear-gradient(135deg, #1A150E 0%, #0c0905 100%)",
+      "textColor": "#FFFAF0",
+      "subtitleColor": "#FB923C"
+    }
+  }
+}

@@ -17,3 +17,6 @@ yarn-error.log*
 
 # Assets
 public/assets/
+
+# Build outputs
+build/
